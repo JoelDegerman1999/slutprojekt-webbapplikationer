@@ -4,6 +4,34 @@
 
 Samla era erfarenheter från Kanban, Scrum och diskussionerna av Modern Agile och kom överens i gruppen vilka delar och hur ni ska inkorporera detta i erat arbete. Dokumentera vad ni kommer överens om i README.md i erat repository.
 
+************************  Metodologi **************************************
+
+Vi har bestämt oss för att använda SCRUM i vårt projekt. 
+
+* Vi ska skapa en sprint-backlogg med user stories.
+* Vi planerar 2 st sprintar. En som slutar på torsdag eftermiddag och en andra som slutar tisdag eftermiddag nästa vecka.
+
+
+Sprint 1 onsdag -> torsdag
+- Sprint-backlogg med user stories onsdag morgon
+- Dagliga scrum-möten kl 9.00 
+- Sprint review med demos på torsdag eftermiddag
+- Vid behov retrospective torsdag eftermiddag
+
+Sprint 2 fredag -> tisdag
+- Sprint back-logg med user stories fredag morgon
+- daily scrums kl 9.00
+- Sprint review med demos på tisdag eftermiddag
+- Vid behov retrospective tisdag eftermiddag
+
+*******************************************************************************************
+
+
+
+
+
+
+
 
 ## Instruktioner
 Ni ska bygga en FrontEnd till en färdig BackEnd.
