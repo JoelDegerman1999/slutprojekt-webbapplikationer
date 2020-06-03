@@ -1,13 +1,15 @@
 <template>
   <nav>
-    <router-link to="home"><img src="@/assets/sinus-logo.svg" class="logo" /></router-link>
+    <router-link to="/">
+      <img src="@/assets/sinus-logo.svg" class="logo" />
+    </router-link>
     <div class="navigation">
       <div class="nav-btn">
         <router-link to="/login/account">
-          <button class="login">Login</button>
+          <button class="login">LOGIN</button>
         </router-link>
         <router-link to="/about">
-          <button class="about">About</button>
+          <button class="about">ABOUT</button>
         </router-link>
         <router-link to="/cart">
           <button>
@@ -17,7 +19,7 @@
       </div>
       <div class="profile">
         <router-link to="/profile">
-          <img src="@/assets/person-24px.svg" alt="" />
+          <img src="@/assets/person-24px.svg" />
         </router-link>
       </div>
     </div>
@@ -34,13 +36,12 @@ button {
   border: none;
   background-color: #24252a;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 nav {
   background-color: #24252a;
   padding: 0 5rem;
-  margin-bottom: 2rem;
   height: 6rem;
   display: flex;
   justify-content: space-between;
@@ -49,19 +50,23 @@ nav {
     width: 172px;
   }
   .navigation {
-    width: 33rem;
+    width: 36rem;
     display: flex;
     justify-content: space-between;
     .nav-btn {
-      width: 22rem;
+      width: 25rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .about {
         background-color: #1489ab;
-        width: 10rem;
+        width: 12rem;
         height: 3rem;
         border-radius: 50px;
+        letter-spacing: 0.3rem;
+      }
+      .login {
+        letter-spacing: 0.3rem;
       }
       .cart {
         width: 2rem;
