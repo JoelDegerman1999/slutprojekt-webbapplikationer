@@ -36,7 +36,7 @@ button {
   border: none;
   background-color: #24252a;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 nav {
