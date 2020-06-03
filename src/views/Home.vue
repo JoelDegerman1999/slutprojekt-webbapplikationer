@@ -3,15 +3,21 @@
     <section class="background" />
     <section class="product-container">
       <div v-if="loading">loadig....</div>
-      <article class="product" v-for="product in products" :key="product._id">
-        <div class="product-img">
-          <img :src="require(`@/assets/${product.imgFile}`)" />
-        </div>
-        <div class="product-info">
-          <h2>{{ product.title }}</h2>
-          <h3>{{ product.price }} kr</h3>
-        </div>
-      </article>
+      <router-link
+        :to="`/product/${product._id}`"
+        v-for="product in products"
+        :key="product._id"
+      >
+        <article class="product">
+          <div class="product-img">
+            <img :src="require(`@/assets/${product.imgFile}`)" />
+          </div>
+          <div class="product-info">
+            <h2>{{ product.title }}</h2>
+            <h3>{{ product.price }} kr</h3>
+          </div>
+        </article>
+      </router-link>
     </section>
   </div>
 </template>
@@ -37,9 +43,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
 h2,
 h3 {
   font-weight: 500;
+  letter-spacing: 0.2rem;
 }
 .container {
   height: 100%;
@@ -57,7 +68,9 @@ h3 {
     gap: 5rem;
     .product {
       width: 100%;
+      height: 100%;
       .product-img {
+        padding: 1rem 1rem 0;
         background-color: #c4c4c4;
         display: flex;
         justify-content: center;
