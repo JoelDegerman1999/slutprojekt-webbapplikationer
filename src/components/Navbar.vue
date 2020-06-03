@@ -1,6 +1,8 @@
 <template>
   <nav>
+   <router-link to="/">
     <img src="@/assets/sinus-logo.svg" class="logo" />
+   </router-link>
     <div class="navigation">
       <div class="nav-btn">
         <router-link to="/login/account">

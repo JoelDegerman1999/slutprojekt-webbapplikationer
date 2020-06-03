@@ -7,3 +7,10 @@ export default {};
 </script>
 
 <style lang="scss" scoped></style>
+.cart{
+  
+display: grid;
+grid-template-columns: repeat(8,12.5%);
+grid-template-rows: 20% 20% 20% 20% 20%;
+
+}
