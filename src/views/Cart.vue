@@ -58,6 +58,9 @@ export default {
       quantity: 1,
     };
   },
+    mounted() {
+    if(localStorage.name) this.name = localStorage.name;
+  },
   methods: {
    
     increaseCount(item) {
