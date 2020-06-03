@@ -1,11 +1,18 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
+* {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6rem;
+}
 #app {
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
