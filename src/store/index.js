@@ -10,6 +10,7 @@ export default new Vuex.Store({
     products: [],
     product: {},
     token: "",
+    cart: [],
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -20,6 +21,14 @@ export default new Vuex.Store({
     },
     SET_TOKEN(state, token) {
       state.token = token;
+    },
+    ADD_TO_CART(state, quantity) {
+      let cartItem = {
+        item: state.product,
+        quantity: quantity,
+      };
+      state.cart.push(cartItem);
+      console.log(state.cart);
     },
   },
   actions: {

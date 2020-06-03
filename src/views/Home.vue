@@ -2,7 +2,7 @@
   <div class="container">
     <section class="background" />
     <section class="product-container">
-      <div v-if="loading">loadig....</div>
+      <div v-if="loading">loading....</div>
       <router-link
         :to="`/product/${product._id}`"
         v-for="product in products"

@@ -13,7 +13,7 @@
           {{ product.longDesc }}
         </p>
         <div class="buy">
-          <button>ADD TO CART</button>
+          <button @click="addToCart">ADD TO CART</button>
           <div>
             <label>Quantity:</label>
             <input type="text" v-model="quantity" />
@@ -36,7 +36,12 @@ export default {
   computed: {
     ...mapState(["product"]),
   },
-  methods: { ...mapActions(["getProduct"]) },
+  methods: {
+    ...mapActions(["getProduct"]),
+    addToCart() {
+      this.$store.commit("ADD_TO_CART", this.quantity);
+    },
+  },
   async mounted() {
     this.loading = true;
     await this.getProduct(this.$route.params.id);
