@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <section class="product">
-      <img :src="require(`@/assets/${product.imgFile}`)" class="product-img" />
+      <img
+        v-if="product.imgFile"
+        :src="require('@/assets/' + product.imgFile)"
+        class="product-img"
+      />
       <div class="product-info">
         <h1>{{ product.title }}</h1>
         <h2>{{ product.price }}kr</h2>
