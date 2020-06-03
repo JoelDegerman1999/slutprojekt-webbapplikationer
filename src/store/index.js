@@ -24,10 +24,19 @@ export default new Vuex.Store({
       commit("SET_PRODUCTS", products.data);
     },
     async login({ commit }, loginCred) {
+      try{
       let login = await User.auth(loginCred.email, loginCred.password);
-      console.log(login);
+      // console.log(login);
       commit("SET_TOKEN", login.data.token);
+      return login.status;
+      }catch(error){
+        return 403;
+      }
     },
+    async createNewUser(context, newUser){
+      let user = await User.register(newUser);
+      console.log(user);
+    }
   },
   modules: {},
 });
