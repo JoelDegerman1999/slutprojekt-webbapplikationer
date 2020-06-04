@@ -43,7 +43,7 @@ button {
 nav {
   background-color: #24252a;
   padding: 0 5rem;
-  height: 6rem;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;

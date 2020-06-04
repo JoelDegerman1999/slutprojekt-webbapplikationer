@@ -22,11 +22,7 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.token = token;
     },
-    ADD_TO_CART(state, quantity) {
-      let cartItem = {
-        item: state.product,
-        quantity: quantity,
-      };
+    ADD_TO_CART(state, cartItem) {
       state.cart.push(cartItem);
       console.log(state.cart);
     },
