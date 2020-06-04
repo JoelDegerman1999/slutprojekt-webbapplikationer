@@ -1,5 +1,6 @@
 <template>
-  <div id="profileContainer">
+<section>
+  <div id="profileContainer" v-if= "Object.keys(currentUser).length > 0">
     <div id="profilePicture"></div>
     <h1>{{currentUser.name}}</h1>
     <h2>{{currentUser.email}}</h2>
@@ -38,6 +39,10 @@
     <div v-else>You have no placed orders.</div>
     <button v-on:click= "addFakeOrderHistory">ADD ORDER</button>
   </div>
+  <div v-else>
+    <h1>Error! You must be a registered user to be able to see this site.</h1>
+  </div>
+  </section>
 </template>
 
 <script>
@@ -79,15 +84,16 @@ export default {
   },
   computed:{
     currentUser(){
+      //Hämta från localStorage istället?
       return this.$store.state.user;
     },
   },
 
   async mounted(){
       let currentUser = this.$store.state.user;
-      //TODO vad göra om användaren ej har orderHistory
       this.orders = currentUser.orderHistory;
 
+      //undefined == användaren har inga ordrar
       if(this.orders != undefined){
         for(let i = 0; i < this.orders.length; i++){
           this.computedOrders.push([]);
@@ -102,7 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 #profileContainer{
-  margin-top: 5rem;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,7 +118,8 @@ export default {
     width: 15rem;
     height: 15rem;
     border-radius: 30rem;
-    background-color: red;
+    border: 2px solid gray;
+    background-color: whitesmoke;
     margin-bottom: 2rem;
   }
 
