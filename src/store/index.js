@@ -23,17 +23,25 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.token = token;
     },
-    ADD_TO_CART(state, quantity) {
-      let cartItem = {
-        item: state.product,
-        quantity: quantity,
-      };
+    SET_CART(state, cartArray) {
+      state.cart = cartArray;
+      console.log(state.cart)
+    },
+    ADD_TO_CART(state, cartItem) {
       state.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(state.cart))
       console.log(state.cart);
     },
     SET_USER(state, user){
       state.user = user;
     }
+    ADD_PRODUCT(state, product) {
+      state.products.push(product);
+    },
+    DELETE_PRODUCT(state, product) {
+      let index = state.products.findIndex((p) => p._id == product._id);
+      state.products.splice(index, 1);
+    },
   },
   actions: {
     async getAllProducts({ commit }) {
@@ -58,10 +66,32 @@ export default new Vuex.Store({
         return 403;
       }
     },
-    async createNewUser(context, newUser){
+    async createNewUser(context, newUser) {
       let user = await User.register(newUser);
       console.log(user);
+    },
+    getCartFromLocalStorage({ commit }) {
+      let cartArray = JSON.parse(localStorage.getItem("cart"))
+      if(cartArray){
+        commit("SET_CART",cartArray)
+      }
+      
+      console.log(cartArray)
     }
+
+    async createProduct({ commit }, product) {
+      let newProduct = await Product.create(product);
+      console.log(newProduct);
+      commit("ADD_PRODUCT", newProduct.data.product);
+    },
+    async updateProduct({ commit }, updatedProduct) {
+      await Product.update(updatedProduct);
+      commit("SET_PRODUCT", updatedProduct);
+    },
+    async deleteProduct({ commit }, product) {
+      await Product.delete(product);
+      commit("DELETE_PRODUCT", product);
+    },
   },
   modules: {},
 });

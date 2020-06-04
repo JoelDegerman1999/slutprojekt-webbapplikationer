@@ -1,9 +1,14 @@
 <template>
-  <div><h1>This is an admin page</h1></div>
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Admin"
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
