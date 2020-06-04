@@ -11,8 +11,8 @@
 import Navbar from "./components/Navbar";
 export default {
   components: {
-    Navbar,
-  },
+    Navbar
+  }
 };
 </script>
 
@@ -30,5 +30,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+button {
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  &:active {
+    opacity: 0.6;
+  }
 }
 </style>
