@@ -1,10 +1,9 @@
 <template>
-  <div></div>
+  <div><h1>This is an admin page</h1></div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
