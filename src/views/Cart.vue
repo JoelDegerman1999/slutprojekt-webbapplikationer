@@ -1,179 +1,115 @@
 <template>
-  <div>
-    <h1>This is the cart page</h1>
-    <div class="container">
-    <!-- <AppNavigator /> -->
-    <!-- <Header showCart @cartClicked="openMenu" /> -->
-    <main>
-      <article class="your-cart">
-        <h1>Your cart:</h1>
-        <div class="cart-container">
-          <div v-for="item in cartItems" :key="item.id">
-            <div class="cart-menu">
-              <div class="cart-item">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.price }} kr</p>
-              </div>
-              <div class="order-quantity">
-                <img
-                  src="@/assets/arrow-up.svg"
-                  @click="increaseCount(item)"
-                />
-                <h4>{{ item.quantity }}</h4>
-                <img
-                  src="@/assets/arrow-down.svg"
-                  @click="decreseCount(item)"
-                />
-              </div>
-            </div>
+  <div class="container">
+    <div class="cart-container">
+      <article class="cart" v-for="item in getCart" :key="item.product._id">
+        <div class="cart-first-two-columns">
+          <div class="cart-image" v-if="item.product.imgFile">
+            <img :src="require(`@/assets/${item.product.imgFile}`)" />
+          </div>
+          <div class="cart-title">
+            <p>{{ item.product.title }}</p>
           </div>
         </div>
-        <div class="total">
-          <div class="total-inner">
-            <h1>Total</h1>
-            <h1>{{ getTotal }} kr</h1>
-          </div>
-          <p>VAT included</p>
+
+        <div class="cart-quantity">
+          <img src="@/assets/remove-circle-outline.svg" @click="decreseCount(item)" />
+          <p>{{item.quantity}} st</p>
+          <img src="@/assets/add-circle-outline.svg" @click="increaseCount(item)" />
         </div>
-        <div class="buy">
-          <button class="buy-btn" @click="submitOrder()">
-            <h1>Proceed to checkout!</h1>
-          </button>
+        <div class="cart-price">
+          <p>{{item.product.price}} kr</p>
         </div>
       </article>
-    </main>
-    <footer>
-      <!-- <img src="@/assets/graphics/graphics-footer.svg" class="footer-img" /> -->
-    </footer>
-  </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
- 
   data() {
-    return {
-      cartItems: '',
-      quantity: 1,
-    };
+    return {};
   },
-    mounted() {
-    if(localStorage.name) this.name = localStorage.name;
+  beforeMount() {
+    this.$store.dispatch("getCartFromLocalStorage");
   },
-  methods: {
-   
-    increaseCount(item) {
-      item.quantity++;
-    },
-    decreseCount(item) {
-      if (item.quantity <= 1) {
-        this.cartItems = this.cartItems.filter((i) => i.id != item.id);
-        this.$store.commit("remoteItemFromCart", item);
-      } else {
-        item.quantity--;
-      }
-    },
-  },
+  methods: {},
   computed: {
-    getTotal() {
-      let total = 0;
-      this.cartItems.forEach((element) => {
-        if (element.quantity > 1) {
-          for (let i = 0; i < element.quantity; i++) {
-            total += element.price;
-          }
-        } else {
-          total += element.price;
-        }
-      });
-      return total;
-    },
-  },
+    getCart() {
+      return this.$store.state.cart;
+    }
+    // getTotal() {
+    //   let total = 0;
+    //   this.cartItems.forEach((element) => {
+    //     if (element.quantity > 1) {
+    //       for (let i = 0; i < element.quantity; i++) {
+    //         total += element.price;
+    //       }
+    //     } else {
+    //       total += element.price;
+    //     }
+    //   });
+    //   return total;
+    // }
+  }
 };
 </script>
 
 
 <style lang="scss" scoped>
 .container {
-  min-height: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  background: beige;
+  background: #dedede;
+  justify-content: center;
 
-  main {
-    margin: auto 0;
-    padding: 1rem;
+  .cart-container {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 5rem;
+    gap: 1rem;
+    margin-top: 4rem;
+    width: 70%;
+    height: 70%;
+    background: white;
 
-    .your-cart {
-      padding: 1rem;
+    article.cart {
+      display: flex;
+      justify-content: space-between;
       box-sizing: border-box;
-      border-radius: 5px;
-      z-index: 1;
-      height: 80%;
-      position: absolute;
-      top: 10%;
-      left: 7.5%;
-      background-color: white;
-      display: grid;
-      grid-template-rows: 5% 70% 15% 10%;
-
-      .cart-container {
-        overflow: auto;
-        padding-bottom: 2rem;
-        .cart-menu {
-          margin-top: 2rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .order {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          .order-quantity {
-            display: flex;
-            flex-direction: column;
-            h4 {
-              margin: 0.2rem 0;
-            }
-          }
-        }
-      }
-      .total {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        .total-inner {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-      }
-      .checkout {
-        .checkout-btn {
-          height: 3.5rem;
-          width: 18rem;
-          outline: none;
-          border: none;
-          border-radius: 40px;
-          background-color: rgb(66, 55, 55);
-          h1 {
-            color: white;
-            font-weight: 600;
-            letter-spacing: 0.2rem;
-          }
-        }
-      }
-    }
-  }
-
-  footer {
-    img {
-      height: 100%;
+      // background: violet;
+      padding: 3rem;
       width: 100%;
-      margin-bottom: -4px;
+      height: 100%;
+
+      .cart-first-two-columns {
+        display: flex;
+
+        .cart-image {
+          img {
+            height: 2rem;
+          }
+        }
+        .cart-title {
+          padding-left: 2rem;
+        }
+      }
+
+      .cart-quantity {
+        display: flex;
+        
+
+        img {
+          padding:0.1rem;
+          height: 1.2rem;
+        }
+        p {
+          color: black;
+        }
+      }
+      // .cart-price {
+
+      // }
     }
   }
 }

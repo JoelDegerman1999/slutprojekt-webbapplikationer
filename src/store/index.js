@@ -22,12 +22,13 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.token = token;
     },
-    ADD_TO_CART(state, quantity) {
-      let cartItem = {
-        item: state.product,
-        quantity: quantity,
-      };
+    SET_CART(state, cartArray) {
+      state.cart = cartArray;
+      console.log(state.cart)
+    },
+    ADD_TO_CART(state, cartItem) {
       state.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(state.cart))
       console.log(state.cart);
     },
   },
@@ -41,19 +42,28 @@ export default new Vuex.Store({
       commit("SET_PRODUCT", product.data);
     },
     async login({ commit }, loginCred) {
-      try{
-      let login = await User.auth(loginCred.email, loginCred.password);
-      // console.log(login);
-      commit("SET_TOKEN", login.data.token);
-      return login.status;
-      }catch(error){
+      try {
+        let login = await User.auth(loginCred.email, loginCred.password);
+        // console.log(login);
+        commit("SET_TOKEN", login.data.token);
+        return login.status;
+      } catch (error) {
         return 403;
       }
     },
-    async createNewUser(context, newUser){
+    async createNewUser(context, newUser) {
       let user = await User.register(newUser);
       console.log(user);
+    },
+    getCartFromLocalStorage({ commit }) {
+      let cartArray = JSON.parse(localStorage.getItem("cart"))
+      if(cartArray){
+        commit("SET_CART",cartArray)
+      }
+      
+      console.log(cartArray)
     }
+
   },
   modules: {},
 });
