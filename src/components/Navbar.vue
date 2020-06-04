@@ -21,6 +21,7 @@
         <router-link to="/profile">
           <img src="@/assets/person-24px.svg" />
         </router-link>
+        <router-link to="/admin">Admin</router-link>
       </div>
     </div>
   </nav>
@@ -36,7 +37,7 @@ button {
   border: none;
   background-color: #24252a;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 nav {
@@ -60,7 +61,7 @@ nav {
       align-items: center;
       .about {
         background-color: #1489ab;
-        width: 12rem;
+        width: 10rem;
         height: 3rem;
         border-radius: 50px;
         letter-spacing: 0.3rem;
