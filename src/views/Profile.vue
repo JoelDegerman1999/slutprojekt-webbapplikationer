@@ -1,6 +1,6 @@
 <template>
 <section>
-  <div id="profileContainer" v-if= "Object.keys(currentUser).length > 0">
+  <div id="profileContainer">
     <div id="profilePicture"></div>
     <h1>{{currentUser.name}}</h1>
     <h2>{{currentUser.email}}</h2>
@@ -38,9 +38,6 @@
     </div>
     <div v-else>You have no placed orders.</div>
     <button v-on:click= "addFakeOrderHistory">ADD ORDER</button>
-  </div>
-  <div v-else>
-    <h1>Error! You must be a registered user to be able to see this site.</h1>
   </div>
   </section>
 </template>
@@ -91,8 +88,11 @@ export default {
 
   async mounted(){
       let currentUser = this.$store.state.user;
-      this.orders = currentUser.orderHistory;
+      if(Object.keys(currentUser).length === 0){
+        this.$router.push("/login/account");
+      }
 
+      this.orders = currentUser.orderHistory;
       //undefined == användaren har inga ordrar
       if(this.orders != undefined){
         for(let i = 0; i < this.orders.length; i++){
