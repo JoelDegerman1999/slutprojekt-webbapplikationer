@@ -70,14 +70,15 @@ h3 {
       width: 100%;
       height: 100%;
       .product-img {
-        padding: 1rem 1rem 0;
+        padding: 2rem 1rem 0;
         background-color: #c4c4c4;
         display: flex;
         justify-content: center;
         align-items: flex-end;
         height: 75%;
         img {
-          width: 85%;
+          width: 100%;
+          
         }
       }
       .product-info {

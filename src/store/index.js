@@ -22,8 +22,13 @@ export default new Vuex.Store({
     SET_TOKEN(state, token) {
       state.token = token;
     },
+    SET_CART(state, cartArray) {
+      state.cart = cartArray;
+      console.log(state.cart)
+    },
     ADD_TO_CART(state, cartItem) {
       state.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(state.cart))
       console.log(state.cart);
     },
     ADD_PRODUCT(state, product) {
@@ -57,6 +62,15 @@ export default new Vuex.Store({
       let user = await User.register(newUser);
       console.log(user);
     },
+    getCartFromLocalStorage({ commit }) {
+      let cartArray = JSON.parse(localStorage.getItem("cart"))
+      if(cartArray){
+        commit("SET_CART",cartArray)
+      }
+      
+      console.log(cartArray)
+    }
+
     async createProduct({ commit }, product) {
       let newProduct = await Product.create(product);
       console.log(newProduct);

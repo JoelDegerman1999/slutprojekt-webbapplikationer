@@ -23,12 +23,12 @@ export default {
   methods: {
     ...mapActions(["getProduct"]),
     addToCart() {
-      let cartItem = {
-        product: this.product,
-        quantity: this.quantity
-      };
+      let cartItem={
+       product: this.product,
+       quantity:this.quantity
+      }
       this.$store.commit("ADD_TO_CART", cartItem);
-    }
+    },
   },
   async mounted() {
     this.loading = true;
