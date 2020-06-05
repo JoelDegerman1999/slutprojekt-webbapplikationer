@@ -31,7 +31,12 @@
           <h3>Testberga</h3>
         </div>
       </article>
-      <button class="order-btn">PLACE ORDER</button>
+      <div class="nav-btn">
+        <router-link to="/cart">
+          <button class="back-btn">BACK</button>
+        </router-link>
+        <button class="order-btn">PLACE ORDER</button>
+      </div>
     </section>
   </div>
 </template>
@@ -129,11 +134,20 @@ h2 {
         margin-left: 2rem;
       }
     }
-    .order-btn {
-      margin-top: 5rem;
-      font-size: 1.3rem;
-      width: 17rem;
-      height: 4rem;
+    .nav-btn {
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+      margin: 0 auto;
+      button {
+        margin-top: 5rem;
+        font-size: 1.3rem;
+        width: 17rem;
+        height: 4rem;
+      }
+      .back-btn {
+        background-color: #1489ab;
+      }
     }
   }
 }
