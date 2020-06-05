@@ -26,20 +26,21 @@ export default new Vuex.Store({
       state.cart = cartArray;
     },
     ADD_TO_CART(state, cartItem) {
-      let foundIndex=state.cart.findIndex(c => c.product._id==cartItem.product._id);
+      let foundIndex = state.cart.findIndex(
+        (c) => c.product._id == cartItem.product._id
+      );
       console.log(foundIndex);
-      if(foundIndex!=-1) {
-        let found=state.cart.find(c => c.product._id==cartItem.product._id);
-        console.log(found);
-        found.quantity=50;
-        console.log(found);
-       state.cart.splice(foundIndex,1,found);
-     }
-     else{
-      state.cart.push(cartItem);
-      localStorage.setItem("cart", JSON.stringify(state.cart))
-      console.log(state.cart);
-     }
+      if (foundIndex != -1) {
+        let found = state.cart.find(
+          (c) => c.product._id == cartItem.product._id
+        );
+        found.quantity += cartItem.quantity;
+        state.cart.splice(foundIndex, 1, found);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        state.cart.push(cartItem);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
     },
     ADD_PRODUCT(state, product) {
       state.products.push(product);
@@ -73,13 +74,11 @@ export default new Vuex.Store({
       console.log(user);
     },
     getCartFromLocalStorage({ commit }) {
-      let cartArray = JSON.parse(localStorage.getItem("cart"))
-      if(cartArray){
-        commit("SET_CART",cartArray)
+      let cartArray = JSON.parse(localStorage.getItem("cart"));
+      if (cartArray) {
+        commit("SET_CART", cartArray);
       }
-      
-      console.log(cartArray)
-    }
+    },
 
     async createProduct({ commit }, product) {
       let newProduct = await Product.create(product);

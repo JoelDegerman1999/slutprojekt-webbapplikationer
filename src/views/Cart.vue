@@ -12,12 +12,18 @@
         </div>
 
         <div class="cart-quantity">
-          <img src="@/assets/remove-circle-outline.svg" @click="decreseCount(item)" />
-          <p>{{item.quantity}} st</p>
-          <img src="@/assets/add-circle-outline.svg" @click="increaseCount(item)" />
+          <img
+            src="@/assets/remove-circle-outline.svg"
+            @click="decreseCount(item)"
+          />
+          <p>{{ item.quantity }} st</p>
+          <img
+            src="@/assets/add-circle-outline.svg"
+            @click="increaseCount(item)"
+          />
         </div>
         <div class="cart-price">
-          <p>{{item.product.price}} kr</p>
+          <p>{{ item.product.price }} kr</p>
         </div>
       </article>
     </div>
@@ -36,7 +42,7 @@ export default {
   computed: {
     getCart() {
       return this.$store.state.cart;
-    }
+    },
     // getTotal() {
     //   let total = 0;
     //   this.cartItems.forEach((element) => {
@@ -50,10 +56,9 @@ export default {
     //   });
     //   return total;
     // }
-  }
+  },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .container {
@@ -97,10 +102,9 @@ export default {
 
       .cart-quantity {
         display: flex;
-        
 
         img {
-          padding:0.1rem;
+          padding: 0.1rem;
           height: 1.2rem;
         }
         p {
