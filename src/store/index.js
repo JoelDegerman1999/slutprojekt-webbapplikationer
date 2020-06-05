@@ -24,12 +24,22 @@ export default new Vuex.Store({
     },
     SET_CART(state, cartArray) {
       state.cart = cartArray;
-      console.log(state.cart)
     },
     ADD_TO_CART(state, cartItem) {
+      let foundIndex=state.cart.findIndex(c => c.product._id==cartItem.product._id);
+      console.log(foundIndex);
+      if(foundIndex!=-1) {
+        let found=state.cart.find(c => c.product._id==cartItem.product._id);
+        console.log(found);
+        found.quantity=50;
+        console.log(found);
+       state.cart.splice(foundIndex,1,found);
+     }
+     else{
       state.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(state.cart))
       console.log(state.cart);
+     }
     },
   },
   actions: {
