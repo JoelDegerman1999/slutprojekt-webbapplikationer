@@ -2,7 +2,7 @@
   <div class="container">
     <ul v-if="!createForm">
       <li v-for="product in products" :key="product._id">
-        {{product.title}}
+        {{ product.title }}
         <div>
           <router-link :to="`product/${product._id}`">
             <button class="show">Show</button>
@@ -15,16 +15,26 @@
       </li>
     </ul>
     <div class="create">
-      <button v-if="!createForm" @click="createForm = !createForm">Create</button>
+      <button v-if="!createForm" @click="createForm = !createForm">
+        Create
+      </button>
       <section v-if="createForm">
         <div class="field" tabindex="1">
           <label for="title">Item title</label>
-          <input name="title" type="text" placeholder="Hoodie" v-model="newProduct.title" required />
+          <input
+            name="title"
+            type="text"
+            placeholder="Hoodie"
+            v-model="newProduct.title"
+            required
+          />
         </div>
         <div class="field" tabindex="2">
           <label for="img">Image</label>
           <select name="img" v-model="newProduct.imgFile">
-            <option value="hoodie-ash.png" selected="selected">Hoodie ash</option>
+            <option value="hoodie-ash.png" selected="selected"
+              >Hoodie ash</option
+            >
             <option value="hoodie-fire.png">Hoodie fire</option>
             <option value="hoodie-ocean.png">Hoodie ocean</option>
             <option value="skateboard-generic.png">Skateboard generic</option>
@@ -36,7 +46,13 @@
         </div>
         <div class="field" tabindex="3">
           <label for="price">Price</label>
-          <input name="price" type="text" placeholder="275" v-model="newProduct.price" required />
+          <input
+            name="price"
+            type="text"
+            placeholder="275"
+            v-model="newProduct.price"
+            required
+          />
         </div>
         <div class="field" tabindex="4">
           <label for="sDesc">Short desc</label>
@@ -58,7 +74,9 @@
           ></textarea>
         </div>
         <div class="nav-btn">
-          <button class="back-btn" @click="createForm =! createForm">Go back</button>
+          <button class="back-btn" @click="createForm = !createForm">
+            Go back
+          </button>
           <button class="add-btn" @click="addProduct">Add product</button>
         </div>
       </section>
@@ -79,12 +97,12 @@ export default {
         shortDesc: "",
         category: "clothes",
         longDesc: "",
-        imgFile: "hoodie-ash.png"
-      }
+        imgFile: "hoodie-ash.png",
+      },
     };
   },
   computed: {
-    ...mapState(["products"])
+    ...mapState(["products"]),
   },
   methods: {
     ...mapActions(["getAllProducts", "deleteProduct"]),
@@ -100,14 +118,14 @@ export default {
         shortDesc: "",
         category: "clothes",
         longDesc: "",
-        imgFile: "hoodie-ash.png"
+        imgFile: "hoodie-ash.png",
       };
       this.createForm = false;
-    }
+    },
   },
   mounted() {
     this.getAllProducts();
-  }
+  },
 };
 </script>
 
@@ -140,13 +158,6 @@ ul {
         justify-content: space-between;
         width: 40rem;
 
-        button {
-          width: 10rem;
-          border: none;
-          color: white;
-          border-radius: 5px;
-          height: 2rem;
-        }
         .show {
           background: #1489ab;
         }
@@ -167,15 +178,6 @@ ul {
       display: flex;
       flex-direction: column;
     }
-    button {
-      border: none;
-      color: white;
-      background-color: #43a047;
-      width: 10rem;
-      height: 3rem;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
 
     .nav-btn {
       display: flex;
@@ -191,5 +193,5 @@ ul {
       }
     }
   }
-}
-</style>>
+}</style
+>>

@@ -11,14 +11,14 @@
 import Navbar from "./components/Navbar";
 export default {
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 
 <style lang="scss">
 * {
-  font-family: "Raleway", sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6rem;
@@ -33,6 +33,13 @@ export default {
 }
 button {
   outline: none;
+  border: none;
+  width: 10rem;
+  border: none;
+  color: white;
+  background: #43a047;
+  border-radius: 2px;
+  height: 2rem;
   transition: all 0.2s ease;
   cursor: pointer;
   &:active {

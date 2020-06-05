@@ -49,6 +49,33 @@ export default new Vuex.Store({
       let index = state.products.findIndex((p) => p._id == product._id);
       state.products.splice(index, 1);
     },
+    INCREASE_CART_QUANTITY(state, item) {
+      //index 2
+      let index = state.cart.findIndex(
+        (c) => c.product._id == item.product._id
+      );
+      //quantity en mer än vad som var
+      item.quantity++;
+      //tar bort gamla objeket och ersätter med nytt.
+      state.cart.splice(index, 1, item);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    DECREASE_CART_QUANTITY(state, item) {
+      //index 2
+      let index = state.cart.findIndex(
+        (c) => c.product._id == item.product._id
+      );
+      //quantity en mer än vad som var
+      if (item.quantity <= 1) {
+        state.cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        item.quantity--;
+        //tar bort gamla objeket och ersätter med nytt.
+        state.cart.splice(index, 1, item);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
+    },
   },
   actions: {
     async getAllProducts({ commit }) {

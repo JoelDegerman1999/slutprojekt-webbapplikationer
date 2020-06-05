@@ -14,7 +14,7 @@
         <div class="cart-quantity">
           <img
             src="@/assets/remove-circle-outline.svg"
-            @click="decreseCount(item)"
+            @click="decreaseCount(item)"
           />
           <p>{{ item.quantity }} st</p>
           <img
@@ -23,9 +23,14 @@
           />
         </div>
         <div class="cart-price">
-          <p>{{ item.product.price }} kr</p>
+          <p>{{ getRowTotal(item) }} kr</p>
         </div>
       </article>
+      <h1>Total {{ getTotal }}</h1>
+    </div>
+    <div class="nav-btn">
+      <button class="continue">CONTINUE SHOPPING</button>
+      <button class="checkout">CHECKOUT NOW</button>
     </div>
   </div>
 </template>
@@ -38,24 +43,40 @@ export default {
   beforeMount() {
     this.$store.dispatch("getCartFromLocalStorage");
   },
-  methods: {},
+  methods: {
+    increaseCount(item) {
+      this.$store.commit("INCREASE_CART_QUANTITY", item);
+    },
+    decreaseCount(item) {
+      this.$store.commit("DECREASE_CART_QUANTITY", item);
+    },
+
+    getRowTotal(item) {
+      let sum = 0;
+      for (let i = 0; i < item.quantity; i++) {
+        sum += item.product.price;
+      }
+      return sum;
+    },
+  },
   computed: {
     getCart() {
       return this.$store.state.cart;
     },
-    // getTotal() {
-    //   let total = 0;
-    //   this.cartItems.forEach((element) => {
-    //     if (element.quantity > 1) {
-    //       for (let i = 0; i < element.quantity; i++) {
-    //         total += element.price;
-    //       }
-    //     } else {
-    //       total += element.price;
-    //     }
-    //   });
-    //   return total;
-    // }
+    getTotal() {
+      let cart = this.getCart;
+      let sum = 0;
+      cart.forEach((element) => {
+        if (element.quantity > 1) {
+          for (let i = 0; i < element.quantity; i++) {
+            sum += element.product.price;
+          }
+        } else {
+          sum += element.product.price;
+        }
+      });
+      return sum;
+    },
   },
 };
 </script>
@@ -64,8 +85,9 @@ export default {
 .container {
   height: 100%;
   display: flex;
+  flex-direction: column;
   background: #dedede;
-  justify-content: center;
+  align-items: center;
 
   .cart-container {
     display: grid;
