@@ -29,8 +29,12 @@
       <h1>Total {{ getTotal }}</h1>
     </div>
     <div class="nav-btn">
-      <button class="continue">CONTINUE SHOPPING</button>
-      <button class="checkout">CHECKOUT NOW</button>
+      <router-link to="/">
+        <button class="cont-btn">CONTINUE SHOPPING</button>
+      </router-link>
+      <router-link to="/checkout">
+        <button class="check-btn">CHECKOUT NOW</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -88,6 +92,23 @@ export default {
   flex-direction: column;
   background: #dedede;
   align-items: center;
+
+  .nav-btn {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+
+    button {
+      height: 3.5rem;
+      font-size: 1.2rem;
+      width: 15rem;
+      margin-top: 2rem;
+    }
+
+    .cont-btn {
+      background: #1489ab;
+    }
+  }
 
   .cart-container {
     display: grid;
