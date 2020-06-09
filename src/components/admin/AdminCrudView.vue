@@ -88,12 +88,22 @@ export default {
   },
   methods: {
     ...mapActions(["getAllProducts", "deleteProduct"]),
-    deleteP(product) {
+    async deleteP(product) {
       if (!confirm("Delete product")) return;
-      this.deleteProduct(product);
+      try {
+        await this.deleteProduct(product);
+      } catch {
+        this.$store.dispatch("logout");
+        this.$router.push("/login/account");
+      }
     },
     async addProduct() {
-      await this.$store.dispatch("createProduct", this.newProduct);
+      try {
+        await this.$store.dispatch("createProduct", this.newProduct);
+      } catch {
+        this.$store.dispatch("logout");
+        this.$router.push("/login/account");
+      }
       this.newProduct = {
         title: "",
         price: "",

@@ -13,6 +13,7 @@
           <input type="password" v-model="password" />
         </div>
       </div>
+      <h3 id="errorMessage">{{errorMessage}}</h3>
       <div class="buttons">
         <button id="loginButton" v-on:click="loginUser">LOGIN</button>
         <p>Not a user yet?</p>
@@ -29,6 +30,7 @@ export default {
   data: () => ({
     email: "",
     password: "",
+    errorMessage: "",
 
     statusCode: 200,
   }),
@@ -43,6 +45,12 @@ export default {
       let statusCode = await this.$store.dispatch('login', userCredentials);
       if(statusCode == 200){
         this.$router.push("/");
+      }else{
+        let inputFields = document.querySelectorAll("input");
+        inputFields.forEach(element => {
+          element.classList.add("wrongInput");
+        });
+          this.errorMessage = "Incorrect email or password.";
       }
     },
   },
@@ -63,6 +71,10 @@ input {
 
 input:focus {
   transform: scale(1.02);
+}
+
+.wrongInput{
+  border: 2px solid red;
 }
 
 h2 {
@@ -126,5 +138,10 @@ h1 {
   h2 {
     margin-bottom: 1rem;
   }
+}
+
+#errorMessage{
+  color: red;
+  font-weight: bold;
 }
 </style>

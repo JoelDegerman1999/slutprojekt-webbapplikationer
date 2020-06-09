@@ -1,7 +1,7 @@
 import Api from "./Api";
 
 export default {
-  get() {
+  get(token) {
     let config = { headers: { Authorization: `Bearer ${token}` } };
     return Api.get("orders", config);
   },
