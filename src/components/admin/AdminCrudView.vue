@@ -63,7 +63,6 @@
         </div>
       </section>
     </div>
-    <button @click="logout">logout</button>
   </div>
 </template>
 
@@ -107,6 +106,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
+      this.$router.push("/logout");
     }
   },
   mounted() {

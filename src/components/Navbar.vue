@@ -5,8 +5,11 @@
     </router-link>
     <div class="navigation">
       <div class="nav-btn">
-        <router-link to="/login/account">
+        <router-link to="/login/account" v-if="!this.$store.state.user">
           <button class="login">LOGIN</button>
+        </router-link>
+        <router-link to="/logout" v-if="this.$store.state.user">
+          <button class="login">LOGOUT</button>
         </router-link>
         <router-link to="/about">
           <button class="about">ABOUT</button>
@@ -21,7 +24,6 @@
         <router-link to="/profile">
           <img src="@/assets/person-24px.svg" />
         </router-link>
-        <router-link to="/admin">Admin</router-link>
       </div>
     </div>
   </nav>

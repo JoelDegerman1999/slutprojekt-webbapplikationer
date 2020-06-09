@@ -8,6 +8,7 @@ import Checkout from "../views/Checkout.vue";
 import Login from "../views/Login.vue";
 import Product from "../views/Product.vue";
 import Profile from "../views/Profile.vue";
+import Logout from "../views/Logout.vue";
 
 import RegisterAccount from "../components/RegisterAccount.vue";
 import LoginAccount from "../components/LoginAccount.vue";
@@ -80,6 +81,11 @@ const routes = [
     path: "/profile",
     name: "Proile",
     component: Profile,
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
   },
 ];
 
