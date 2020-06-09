@@ -49,8 +49,8 @@ export default {
         let inputFields = document.querySelectorAll("input");
         inputFields.forEach(element => {
           element.classList.add("wrongInput");
-          this.errorMessage = "Incorrect email or password.";
         });
+          this.errorMessage = "Incorrect email or password.";
       }
     },
   },
