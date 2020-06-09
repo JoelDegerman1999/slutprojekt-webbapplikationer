@@ -15,26 +15,16 @@
       </li>
     </ul>
     <div class="create">
-      <button v-if="!createForm" @click="createForm = !createForm">
-        Create
-      </button>
+      <button v-if="!createForm" @click="createForm = !createForm">Create</button>
       <section v-if="createForm">
         <div class="field" tabindex="1">
           <label for="title">Item title</label>
-          <input
-            name="title"
-            type="text"
-            placeholder="Hoodie"
-            v-model="newProduct.title"
-            required
-          />
+          <input name="title" type="text" placeholder="Hoodie" v-model="newProduct.title" required />
         </div>
         <div class="field" tabindex="2">
           <label for="img">Image</label>
           <select name="img" v-model="newProduct.imgFile">
-            <option value="hoodie-ash.png" selected="selected"
-              >Hoodie ash</option
-            >
+            <option value="hoodie-ash.png" selected="selected">Hoodie ash</option>
             <option value="hoodie-fire.png">Hoodie fire</option>
             <option value="hoodie-ocean.png">Hoodie ocean</option>
             <option value="skateboard-generic.png">Skateboard generic</option>
@@ -46,13 +36,7 @@
         </div>
         <div class="field" tabindex="3">
           <label for="price">Price</label>
-          <input
-            name="price"
-            type="text"
-            placeholder="275"
-            v-model="newProduct.price"
-            required
-          />
+          <input name="price" type="text" placeholder="275" v-model="newProduct.price" required />
         </div>
         <div class="field" tabindex="4">
           <label for="sDesc">Short desc</label>
@@ -74,13 +58,12 @@
           ></textarea>
         </div>
         <div class="nav-btn">
-          <button class="back-btn" @click="createForm = !createForm">
-            Go back
-          </button>
+          <button class="back-btn" @click="createForm = !createForm">Go back</button>
           <button class="add-btn" @click="addProduct">Add product</button>
         </div>
       </section>
     </div>
+    <button @click="logout">logout</button>
   </div>
 </template>
 
@@ -97,12 +80,12 @@ export default {
         shortDesc: "",
         category: "clothes",
         longDesc: "",
-        imgFile: "hoodie-ash.png",
-      },
+        imgFile: "hoodie-ash.png"
+      }
     };
   },
   computed: {
-    ...mapState(["products"]),
+    ...mapState(["products"])
   },
   methods: {
     ...mapActions(["getAllProducts", "deleteProduct"]),
@@ -118,14 +101,17 @@ export default {
         shortDesc: "",
         category: "clothes",
         longDesc: "",
-        imgFile: "hoodie-ash.png",
+        imgFile: "hoodie-ash.png"
       };
       this.createForm = false;
     },
+    logout() {
+      this.$store.dispatch("logout");
+    }
   },
   mounted() {
     this.getAllProducts();
-  },
+  }
 };
 </script>
 
@@ -193,5 +179,6 @@ ul {
       }
     }
   }
-}</style
+}
+</style
 >>

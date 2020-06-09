@@ -9,9 +9,9 @@ export default new Vuex.Store({
   state: {
     products: [],
     product: {},
-    token: "",
+    token: JSON.parse(localStorage.getItem("jwtToken")) || null,
     cart: [],
-    user: {},
+    user: JSON.parse(localStorage.getItem("user")) || null,
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -21,16 +21,20 @@ export default new Vuex.Store({
       state.product = product;
     },
     SET_TOKEN(state, token) {
+      localStorage.setItem("jwtToken", JSON.stringify(token));
       state.token = token;
     },
     SET_CART(state, cartArray) {
       state.cart = cartArray;
     },
+    SET_USER(state, user) {
+      localStorage.setItem("user", JSON.stringify(user));
+      state.user = user;
+    },
     ADD_TO_CART(state, cartItem) {
       let foundIndex = state.cart.findIndex(
         (c) => c.product._id == cartItem.product._id
       );
-      console.log(foundIndex);
       if (foundIndex != -1) {
         let found = state.cart.find(
           (c) => c.product._id == cartItem.product._id
@@ -42,9 +46,6 @@ export default new Vuex.Store({
         state.cart.push(cartItem);
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
-    },
-    SET_USER(state, user) {
-      state.user = user;
     },
     ADD_PRODUCT(state, product) {
       state.products.push(product);
@@ -104,6 +105,12 @@ export default new Vuex.Store({
         return 403;
       }
     },
+    async logout({ commit }) {
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("user");
+      commit("SET_USER", null);
+      commit("SET_TOKEN", null);
+    },
     async createNewUser(context, newUser) {
       let user = await User.register(newUser);
       console.log(user);
@@ -115,17 +122,17 @@ export default new Vuex.Store({
       }
     },
 
-    async createProduct({ commit }, product) {
-      let newProduct = await Product.create(product);
+    async createProduct({ commit, state }, product) {
+      let newProduct = await Product.create(product, state.token);
       console.log(newProduct);
       commit("ADD_PRODUCT", newProduct.data.product);
     },
-    async updateProduct({ commit }, updatedProduct) {
-      await Product.update(updatedProduct);
+    async updateProduct({ commit, state }, updatedProduct) {
+      await Product.update(updatedProduct, state.token);
       commit("SET_PRODUCT", updatedProduct);
     },
-    async deleteProduct({ commit }, product) {
-      await Product.delete(product);
+    async deleteProduct({ commit, state }, product) {
+      await Product.delete(product, state.token);
       commit("DELETE_PRODUCT", product);
     },
   },
