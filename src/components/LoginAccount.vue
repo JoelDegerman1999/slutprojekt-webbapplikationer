@@ -86,6 +86,11 @@ h1{
     font-weight: bold;
     font-size: 1.2rem;
     border: 1px solid black;
+    transition: all 0.2s;
+  }
+    button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
   }
 
   #loginButton{
