@@ -1,47 +1,24 @@
 <template>
-<<<<<<< HEAD
-<section>
-  <div id="profileContainer" v-if= "currentUser != null">
-    <div id="profilePicture"></div>
-    <h1>{{currentUser.name}}</h1>
-    <h2>{{currentUser.email}}</h2>
-    <div class="adressInformation">
-      <h1 class="shippingAdress">SHIPPING ADRESS</h1>
-      <h3>{{currentUser.adress.street}}</h3>
-      <h3>{{currentUser.adress.zip}}</h3>
-      <h3>{{currentUser.adress.city}}</h3>
-    </div>
-    
-    <h1>ORDER HISTORY</h1>
-    <div class="orderHistory" v-if= "orders != undefined">
-      <div v-for= "(order, index) in orders"
-      v-bind:key= "order._id"
-      class="order">
-        <div class="orderFormat">
-=======
   <section>
-    <div id="profileContainer">
+    <div id="profileContainer" v-if="currentUser != null">
       <div id="profilePicture"></div>
       <h1>{{currentUser.name}}</h1>
       <h2>{{currentUser.email}}</h2>
-      <button class="admin" v-if="currentUser.role == 'admin'">Admin page</button>
       <div class="adressInformation">
         <h1 class="shippingAdress">SHIPPING ADRESS</h1>
         <h3>{{currentUser.adress.street}}</h3>
         <h3>{{currentUser.adress.zip}}</h3>
         <h3>{{currentUser.adress.city}}</h3>
       </div>
-
       <h1>ORDER HISTORY</h1>
       <div class="orderHistory" v-if="orders != undefined">
-        <div v-for="(order, index) in orders" v-bind:key="order._id" class="order">
+        <div v-for="(order, index) in orders" v-bind:key="order._id + index" class="order">
           <div class="orderFormat">
->>>>>>> feature_logout
             <h4>ID: {{order._id}}</h4>
             <h4>{{new Date(order.timeStamp).toISOString().substring(0, 10)}}</h4>
           </div>
 
-          <div v-for="orderItem in computedOrders[index]" v-bind:key="orderItem._id">
+          <div v-for="(orderItem, index) in computedOrders[index]" v-bind:key="index">
             <div class="orderFormat">
               <p>{{orderItem.title}}</p>
               <p>{{orderItem.price}} kr</p>
@@ -54,7 +31,6 @@
         </div>
       </div>
       <div v-else>You have no placed orders.</div>
-      <button v-on:click="addFakeOrderHistory">ADD ORDER</button>
     </div>
   </section>
 </template>
@@ -67,61 +43,28 @@ export default {
   }),
 
   methods: {
-    addFakeOrderHistory() {
-      let fakeOrder = {
-        _id: 666,
-        timeStamp: Date.now(),
-        status: "inProcess",
-        items: ["EDSfeUr2tYY89Ajv"],
-        orderValue: 999
-      };
-
-      let fakeOrder2 = {
-        _id: 999,
-        timeStamp: Date.now(),
-        status: "inProcess",
-        items: ["ypgZaZRXYjnQOhQI", "rQRnERmOBjyhKufi"],
-        orderValue: 899
-      };
-
-      this.$store.state.user.orderHistory = [];
-      this.$store.state.user.orderHistory.push(fakeOrder);
-      this.$store.state.user.orderHistory.push(fakeOrder2);
-    },
-
     async getCurrentItem(productId) {
       let prod = await this.$store.dispatch("readProduct", productId);
       return prod;
     }
   },
-<<<<<<< HEAD
-  computed:{
-    currentUser(){
-=======
   computed: {
     currentUser() {
-      //Hämta från localStorage istället?
->>>>>>> feature_logout
       return this.$store.state.user;
+    },
+    getOrderHistory() {
+      return this.$store.state.orderHistory;
     }
   },
+  async beforeCreate() {
+    await this.$store.dispatch("getOrders");
 
-<<<<<<< HEAD
-  async beforeCreate(){
-      let currentUser = this.$store.state.user;
-      if(currentUser == null){
-        this.$router.push("/login/account");
-        return;
-      }
-=======
-  async mounted() {
     let currentUser = this.$store.state.user;
-    if (Object.keys(currentUser).length === 0) {
+    if (currentUser == null) {
       this.$router.push("/login/account");
+      return;
     }
->>>>>>> feature_logout
-
-    this.orders = currentUser.orderHistory;
+    this.orders = this.getOrderHistory;
     //undefined == användaren har inga ordrar
     if (this.orders != undefined) {
       for (let i = 0; i < this.orders.length; i++) {

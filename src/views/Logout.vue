@@ -7,9 +7,10 @@
 <script>
 export default {
   mounted() {
+    this.$store.dispatch("logout");
     setTimeout(() => {
       this.$router.push("/");
-    }, 2000);
+    }, 1000);
   }
 };
 </script>

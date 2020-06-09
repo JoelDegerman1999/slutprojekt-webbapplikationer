@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Product from "../api/Product";
 import User from "../api/User";
+import Order from "../api/Order";
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     token: JSON.parse(localStorage.getItem("jwtToken")) || null,
     cart: [],
     user: JSON.parse(localStorage.getItem("user")) || null,
+    orderHistory: [],
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -26,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_CART(state, cartArray) {
       state.cart = cartArray;
+    },
+    SET_ORDER_HISTORY(state, orderHistory) {
+      state.orderHistory = orderHistory;
     },
     SET_USER(state, user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -49,6 +54,10 @@ export default new Vuex.Store({
     },
     ADD_PRODUCT(state, product) {
       state.products.push(product);
+    },
+    CLEAR_CART(state) {
+      localStorage.removeItem("cart");
+      state.cart = [];
     },
     DELETE_PRODUCT(state, product) {
       let index = state.products.findIndex((p) => p._id == product._id);
@@ -120,6 +129,32 @@ export default new Vuex.Store({
       if (cartArray) {
         commit("SET_CART", cartArray);
       }
+    },
+
+    async placeOrder({ commit, state }, cartItems) {
+      let products = [];
+      for (const e of cartItems) {
+        if (e.quantity > 1) {
+          for (let i = 0; i < e.quantity; i++) {
+            products.push(e.product._id);
+          }
+        } else {
+          products.push(e.product._id);
+        }
+      }
+
+      let order = {
+        items: products,
+      };
+
+      let orderResponse = await Order.create(order, state.token);
+      console.log(orderResponse);
+      commit("CLEAR_CART");
+    },
+
+    async getOrders({ commit, state }) {
+      let orders = await Order.get(state.token);
+      commit("SET_ORDER_HISTORY", orders.data);
     },
 
     async createProduct({ commit, state }, product) {

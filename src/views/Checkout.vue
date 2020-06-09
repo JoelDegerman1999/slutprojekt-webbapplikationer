@@ -35,7 +35,7 @@
         <router-link to="/cart">
           <button class="back-btn">BACK</button>
         </router-link>
-        <button class="order-btn">PLACE ORDER</button>
+        <button class="order-btn" @click="placeOrder">PLACE ORDER</button>
       </div>
     </section>
   </div>
@@ -49,7 +49,7 @@ export default {
     getTotal() {
       let cart = this.cart;
       let sum = 0;
-      cart.forEach((element) => {
+      cart.forEach(element => {
         if (element.quantity > 1) {
           for (let i = 0; i < element.quantity; i++) {
             sum += element.product.price;
@@ -59,7 +59,7 @@ export default {
         }
       });
       return sum;
-    },
+    }
   },
   methods: {
     getRowTotal(item) {
@@ -69,7 +69,16 @@ export default {
       }
       return sum;
     },
+    async placeOrder() {
+      let cartItems = this.cart;
+      console.log("before");
+      await this.$store.dispatch("placeOrder", cartItems);
+      console.log("after");
+    }
   },
+  beforeMount() {
+    this.$store.dispatch("getCartFromLocalStorage");
+  }
 };
 </script>
 
