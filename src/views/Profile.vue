@@ -1,6 +1,6 @@
 <template>
 <section>
-  <div id="profileContainer">
+  <div id="profileContainer" v-if= "currentUser != null">
     <div id="profilePicture"></div>
     <h1>{{currentUser.name}}</h1>
     <h2>{{currentUser.email}}</h2>
@@ -81,7 +81,6 @@ export default {
   },
   computed:{
     currentUser(){
-      //Hämta från localStorage istället?
       return this.$store.state.user;
     },
   },
