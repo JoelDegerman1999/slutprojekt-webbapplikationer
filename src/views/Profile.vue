@@ -4,7 +4,9 @@
       <div id="profilePicture"></div>
       <h1>{{currentUser.name}}</h1>
       <h2>{{currentUser.email}}</h2>
-      <button class="admin" v-if="currentUser.role == 'admin'">Admin page</button>
+      <router-link to="/admin">
+        <button class="admin" v-if="currentUser.role == 'admin'">Admin page</button>
+      </router-link>
       <div class="adressInformation">
         <h1 class="shippingAdress">SHIPPING ADRESS</h1>
         <h3>{{currentUser.adress.street}}</h3>
@@ -82,22 +84,22 @@ export default {
 
   async mounted() {
     let currentUser = this.$store.state.user;
-    if (Object.keys(currentUser).length === 0) {
+    if (currentUser == null) {
       this.$router.push("/login/account");
     }
 
-    this.orders = currentUser.orderHistory;
-    //undefined == användaren har inga ordrar
-    if (this.orders != undefined) {
-      for (let i = 0; i < this.orders.length; i++) {
-        this.computedOrders.push([]);
-        for (let j = 0; j < this.orders[i].items.length; j++) {
-          this.computedOrders[i].push(
-            await this.$store.dispatch("readProduct", this.orders[i].items[j])
-          );
-        }
-      }
-    }
+    // this.orders = currentUser.orderHistory;
+    // //undefined == användaren har inga ordrar
+    // if (this.orders != undefined) {
+    //   for (let i = 0; i < this.orders.length; i++) {
+    //     this.computedOrders.push([]);
+    //     for (let j = 0; j < this.orders[i].items.length; j++) {
+    //       this.computedOrders[i].push(
+    //         await this.$store.dispatch("readProduct", this.orders[i].items[j])
+    //       );
+    //     }
+    //   }
+    // }
   }
 };
 </script>

@@ -63,7 +63,6 @@
         </div>
       </section>
     </div>
-    <button @click="logout" v-if="this.$store.state.user">logout</button>
   </div>
 </template>
 

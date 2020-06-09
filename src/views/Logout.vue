@@ -6,10 +6,11 @@
 
 <script>
 export default {
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch("logout");
     setTimeout(() => {
       this.$router.push("/");
-    }, 2000);
+    }, 1500);
   }
 };
 </script>
