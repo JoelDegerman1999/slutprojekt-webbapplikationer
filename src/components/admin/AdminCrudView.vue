@@ -63,7 +63,7 @@
         </div>
       </section>
     </div>
-    <button @click="logout">logout</button>
+    <button @click="logout" v-if="this.$store.state.user">logout</button>
   </div>
 </template>
 
@@ -107,6 +107,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
+      this.$router.push("/logout");
     }
   },
   mounted() {
