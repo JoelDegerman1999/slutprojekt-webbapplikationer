@@ -1,9 +1,21 @@
 <template>
-  <div><h1>This is an admin page</h1></div>
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Admin",
+  beforeMount() {
+    let user = this.$store.state.user;
+    console.log(user);
+    if (user == null || user.role != "admin") {
+      this.$router.push("/");
+    }
+  }
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>

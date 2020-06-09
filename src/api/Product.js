@@ -7,16 +7,17 @@ export default {
   get(id) {
     return Api.get(`products/${id}`);
   },
-  create(product) {
-    let config = { header: { Authorization: "Bearer ****" } };
+  create(product, token) {
+    let config = { headers: { Authorization: `Bearer ${token}` } };
     return Api.post("products", product, config);
   },
-  update(product) {
-    let config = { header: { Authorization: "Bearer ****" } };
-    return Api.patch(`products/${product.id}`, product, config);
+  update(product, token) {
+    let config = { headers: { Authorization: `Bearer ${token}` } };
+    return Api.patch(`products/${product._id}`, product, config);
   },
-  delete(product) {
-    let config = { header: { Authorization: "Bearer ****" } };
-    return Api.delete(`products/${product.id}`, product, config);
+  delete(product, token) {
+    let config = { headers: { Authorization: `Bearer ${token}` } };
+
+    return Api.delete(`products/${product._id}`, config);
   },
 };

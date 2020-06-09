@@ -8,9 +8,12 @@ import Checkout from "../views/Checkout.vue";
 import Login from "../views/Login.vue";
 import Product from "../views/Product.vue";
 import Profile from "../views/Profile.vue";
+import Logout from "../views/Logout.vue";
 
 import RegisterAccount from "../components/RegisterAccount.vue";
 import LoginAccount from "../components/LoginAccount.vue";
+import AdminProductEditComponent from "../components/admin/AdminProductEditComponent.vue";
+import AdminCrudView from "../components/admin/AdminCrudView.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +32,18 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+    children: [
+      {
+        path: "/admin",
+        name: "AdminView",
+        component: AdminCrudView,
+      },
+      {
+        path: "/admin/edit/product/:id",
+        name: "EditProduct",
+        component: AdminProductEditComponent,
+      },
+    ],
   },
   {
     path: "/cart",
@@ -66,6 +81,11 @@ const routes = [
     path: "/profile",
     name: "Proile",
     component: Profile,
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
   },
 ];
 
