@@ -16,6 +16,7 @@
         </router-link>
         <router-link to="/cart">
           <button>
+            <p id="cartItemCounter">{{cartItems}}</p>
             <img src="@/assets/icon-bag-white.svg" class="cart" />
           </button>
         </router-link>
@@ -30,10 +31,31 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+  computed:{
+    cartItems(){
+      let counter = 0;
+      this.$store.state.cart.forEach(element => {
+        counter += element.quantity;
+      });
+      return counter;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
+#cartItemCounter{
+  position: relative;
+  background-color: #1489ab;
+  border-radius: 50px;
+  width: 2rem;
+  bottom: 1rem;
+  left: 5rem;
+  z-index: 1;
+}
+
 button {
   outline: none;
   border: none;
@@ -73,6 +95,8 @@ nav {
       }
       .cart {
         width: 2rem;
+        position: relative;
+        bottom: 2rem;
       }
     }
     .profile {
