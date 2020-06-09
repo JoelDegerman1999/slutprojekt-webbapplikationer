@@ -71,10 +71,10 @@ export default {
     },
     async placeOrder() {
       let cartItems = this.cart;
-      console.log("before");
+      if (!cartItems.length > 0) return;
       try {
         await this.$store.dispatch("placeOrder", cartItems);
-        // this.$router.push("/");
+        this.$router.push("/");
       } catch {
         this.$router.push("/login/account");
       }
@@ -150,12 +150,12 @@ h2 {
     .nav-btn {
       display: flex;
       justify-content: space-between;
-      width: 60%;
+      width: 40rem;
       margin: 0 auto;
       button {
         margin-top: 5rem;
         font-size: 1.3rem;
-        width: 17rem;
+        width: 12rem;
         height: 4rem;
       }
       .back-btn {

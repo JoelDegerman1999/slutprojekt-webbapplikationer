@@ -60,13 +60,14 @@ export default {
     }
   },
   async beforeCreate() {
-    await this.$store.dispatch("getOrders");
-
     let currentUser = this.$store.state.user;
     if (currentUser == null) {
       this.$router.push("/login/account");
       return;
     }
+
+    await this.$store.dispatch("getOrders");
+
     this.orders = this.getOrderHistory;
     //undefined == användaren har inga ordrar
     if (this.orders != undefined) {

@@ -3,13 +3,14 @@
     <h1 id="topper">Fill out the form to get skatin'!</h1>
     <section id="registerForm">
       <h1>Account Information</h1>
+      <h3>{{errorMessage}}</h3>
       <div class="inputForm">
         <h2>FULL NAME</h2>
         <input type="text" v-model="name" />
       </div>
       <div class="inputForm">
         <h2>EMAIL</h2>
-        <input type="text" v-model="email" />
+        <input type="text" class="email" v-model="email" />
       </div>
       <div class="inputForm" id="passwordInput">
         <h2>PASSWORD</h2>
@@ -49,7 +50,8 @@ export default {
       street: "",
       city: "",
       zip: ""
-    }
+    },
+    errorMessage: ""
   }),
 
   methods: {
@@ -61,14 +63,27 @@ export default {
         name: this.name,
         adress: this.adress
       };
-      await this.$store.dispatch("createNewUser", userToBeRegistered);
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch("createNewUser", userToBeRegistered);
+        this.$router.push("/");
+      } catch {
+        let emailField = document.querySelector(".email");
+        emailField.classList.add("wrongInput");
+        this.errorMessage = "Email already in use.";
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+h3 {
+  font-weight: 400;
+  text-decoration-line: underline;
+}
+.wrongInput {
+  border: 2px solid red;
+}
 .container {
   box-sizing: border-box;
   padding: 1rem;
