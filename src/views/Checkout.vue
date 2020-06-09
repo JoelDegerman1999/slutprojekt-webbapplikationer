@@ -35,7 +35,12 @@
         <router-link to="/cart">
           <button class="back-btn">BACK</button>
         </router-link>
-        <button class="order-btn" @click="placeOrder">PLACE ORDER</button>
+        <button
+          class="order-btn"
+          @click="placeOrder"
+          :class="{disabled: !canCheckOut}"
+          :disabled="!canCheckOut"
+        >PLACE ORDER</button>
       </div>
     </section>
   </div>
@@ -59,6 +64,13 @@ export default {
         }
       });
       return sum;
+    },
+    canCheckOut() {
+      if (this.$store.state.cart.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   methods: {
@@ -72,12 +84,8 @@ export default {
     async placeOrder() {
       let cartItems = this.cart;
       if (!cartItems.length > 0) return;
-      try {
-        await this.$store.dispatch("placeOrder", cartItems);
-        this.$router.push("/");
-      } catch {
-        this.$router.push("/login/account");
-      }
+      await this.$store.dispatch("placeOrder", cartItems);
+      this.$router.push("/");
     }
   },
   beforeMount() {
@@ -89,6 +97,10 @@ export default {
 <style lang="scss" scoped>
 h2 {
   font-weight: 400;
+}
+.disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 .container {
   padding: 2rem;

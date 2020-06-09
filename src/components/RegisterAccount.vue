@@ -112,8 +112,6 @@ h3 {
     height: 3rem;
     font-weight: bold;
     font-size: 1.2rem;
-    border: 1px solid black;
-    background-color: #89c055;
   }
 }
 
