@@ -72,8 +72,12 @@ export default {
     async placeOrder() {
       let cartItems = this.cart;
       console.log("before");
-      await this.$store.dispatch("placeOrder", cartItems);
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch("placeOrder", cartItems);
+        // this.$router.push("/");
+      } catch {
+        this.$router.push("/login/account");
+      }
     }
   },
   beforeMount() {

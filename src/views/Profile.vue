@@ -4,6 +4,9 @@
       <div id="profilePicture"></div>
       <h1>{{currentUser.name}}</h1>
       <h2>{{currentUser.email}}</h2>
+      <router-link to="/admin" v-if="currentUser.role == 'admin'">
+        <button class="admin">Admin page</button>
+      </router-link>
       <div class="adressInformation">
         <h1 class="shippingAdress">SHIPPING ADRESS</h1>
         <h3>{{currentUser.adress.street}}</h3>

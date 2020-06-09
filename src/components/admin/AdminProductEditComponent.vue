@@ -54,9 +54,14 @@ export default {
   methods: {
     ...mapActions(["getProduct"]),
     ...mapActions(["updateProduct"]),
-    update() {
-      this.updateProduct(this.product);
-      this.$router.push("/admin");
+    async update() {
+      try {
+        await this.updateProduct(this.product);
+        this.$router.push("/admin");
+      } catch {
+        this.$store.dispatch("logout");
+        this.$router.push("/login/account");
+      }
     }
   },
   computed: {
