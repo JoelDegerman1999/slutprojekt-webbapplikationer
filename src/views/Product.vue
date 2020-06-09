@@ -9,24 +9,24 @@ import { mapActions, mapState } from "vuex";
 import ProductComponent from "../components/ProductComponent";
 export default {
   components: {
-    ProductComponent
+    ProductComponent,
   },
   data() {
     return {
       loading: false,
-      quantity: 1
     };
   },
   computed: {
-    ...mapState(["product"])
+    ...mapState(["product"]),
   },
   methods: {
     ...mapActions(["getProduct"]),
-    addToCart() {
-      let cartItem={
-       product: this.product,
-       quantity:this.quantity
-      }
+    addToCart(payload) {
+      let quantity = Number.parseInt(payload);
+      let cartItem = {
+        product: this.product,
+        quantity: quantity,
+      };
       this.$store.commit("ADD_TO_CART", cartItem);
     },
   },
@@ -34,7 +34,7 @@ export default {
     this.loading = true;
     await this.getProduct(this.$route.params.id);
     this.loading = false;
-  }
+  },
 };
 </script>
 

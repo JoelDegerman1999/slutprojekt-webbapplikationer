@@ -25,12 +25,23 @@ export default new Vuex.Store({
     },
     SET_CART(state, cartArray) {
       state.cart = cartArray;
-      console.log(state.cart)
     },
     ADD_TO_CART(state, cartItem) {
-      state.cart.push(cartItem);
-      localStorage.setItem("cart", JSON.stringify(state.cart))
-      console.log(state.cart);
+      let foundIndex = state.cart.findIndex(
+        (c) => c.product._id == cartItem.product._id
+      );
+      console.log(foundIndex);
+      if (foundIndex != -1) {
+        let found = state.cart.find(
+          (c) => c.product._id == cartItem.product._id
+        );
+        found.quantity += cartItem.quantity;
+        state.cart.splice(foundIndex, 1, found);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        state.cart.push(cartItem);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
     },
     SET_USER(state, user){
       state.user = user;
@@ -41,6 +52,33 @@ export default new Vuex.Store({
     DELETE_PRODUCT(state, product) {
       let index = state.products.findIndex((p) => p._id == product._id);
       state.products.splice(index, 1);
+    },
+    INCREASE_CART_QUANTITY(state, item) {
+      //index 2
+      let index = state.cart.findIndex(
+        (c) => c.product._id == item.product._id
+      );
+      //quantity en mer än vad som var
+      item.quantity++;
+      //tar bort gamla objeket och ersätter med nytt.
+      state.cart.splice(index, 1, item);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    DECREASE_CART_QUANTITY(state, item) {
+      //index 2
+      let index = state.cart.findIndex(
+        (c) => c.product._id == item.product._id
+      );
+      //quantity en mer än vad som var
+      if (item.quantity <= 1) {
+        state.cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      } else {
+        item.quantity--;
+        //tar bort gamla objeket och ersätter med nytt.
+        state.cart.splice(index, 1, item);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
+      }
     },
   },
   actions: {
@@ -71,13 +109,11 @@ export default new Vuex.Store({
       console.log(user);
     },
     getCartFromLocalStorage({ commit }) {
-      let cartArray = JSON.parse(localStorage.getItem("cart"))
-      if(cartArray){
-        commit("SET_CART",cartArray)
+      let cartArray = JSON.parse(localStorage.getItem("cart"));
+      if (cartArray) {
+        commit("SET_CART", cartArray);
       }
-      
-      console.log(cartArray)
-    }
+    },
 
     async createProduct({ commit }, product) {
       let newProduct = await Product.create(product);

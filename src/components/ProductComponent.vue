@@ -1,6 +1,10 @@
 <template>
   <section class="product">
-    <img v-if="product.imgFile" :src="require('@/assets/' + product.imgFile)" class="product-img" />
+    <img
+      v-if="product.imgFile"
+      :src="require('@/assets/' + product.imgFile)"
+      class="product-img"
+    />
     <div class="product-info">
       <h1>{{ product.title }}</h1>
       <h2>{{ product.price }} kr</h2>
@@ -18,25 +22,23 @@
   </section>
 </template>
 
-
 <script>
 export default {
   props: {
-    product: Object
+    product: Object,
   },
   data() {
     return {
-      quantity: 1
+      quantity: 1,
     };
   },
   methods: {
     addToCart() {
       this.$emit("addToCart", this.quantity);
-    }
-  }
+    },
+  },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .product {
@@ -71,9 +73,6 @@ export default {
         }
       }
       button {
-        border: none;
-        outline: none;
-        color: white;
         background-color: #1489ab;
         width: 12rem;
         height: 3rem;
