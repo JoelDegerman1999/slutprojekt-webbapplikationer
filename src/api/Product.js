@@ -7,33 +7,16 @@ export default {
   get(id) {
     return Api.get(`products/${id}`);
   },
-  create(product) {
-    let config = {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlpMVVNCUjFXSmNsVGdpdUUiLCJleHAiOjE1OTEyNzMwMzEsImlhdCI6MTU5MTI2OTQzMX0.YMe4t4P6yk2ipr558rYNvE-uGAMVfRgvDuebzrEgRtw",
-      },
-    };
+  create(product, token) {
+    let config = { header: { Authorization: `Bearer ${token}` } };
     return Api.post("products", product, config);
   },
-  update(product) {
-    let config = {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlpMVVNCUjFXSmNsVGdpdUUiLCJleHAiOjE1OTEyNzMwMzEsImlhdCI6MTU5MTI2OTQzMX0.YMe4t4P6yk2ipr558rYNvE-uGAMVfRgvDuebzrEgRtw",
-        "Content-Type": "application/json",
-      },
-    };
+  update(product, token) {
+    let config = { header: { Authorization: `Bearer ${token}` } };
     return Api.patch(`products/${product._id}`, product, config);
   },
-  delete(product) {
-    let config = {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlpMVVNCUjFXSmNsVGdpdUUiLCJleHAiOjE1OTEyNzMwMzEsImlhdCI6MTU5MTI2OTQzMX0.YMe4t4P6yk2ipr558rYNvE-uGAMVfRgvDuebzrEgRtw",
-        "Content-Type": "application/json",
-      },
-    };
+  delete(product, token) {
+    let config = { header: { Authorization: `Bearer ${token}` } };
     return Api.delete(`products/${product._id}`, config);
   },
 };
