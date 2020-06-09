@@ -33,9 +33,7 @@
         <input type="text" v-model="adress.zip" />
       </div>
 
-      <button id="registerButton" v-on:click="registerUser">
-        REGISTER NOW!
-      </button>
+      <button id="registerButton" v-on:click="registerUser">REGISTER NOW!</button>
     </section>
   </div>
 </template>
@@ -50,22 +48,23 @@ export default {
     adress: {
       street: "",
       city: "",
-      zip: "",
-    },
+      zip: ""
+    }
   }),
 
   methods: {
-    registerUser() {
+    async registerUser() {
       let userToBeRegistered = {
         email: this.email,
         password: this.password,
         repeatPassword: this.repeatPassword,
         name: this.name,
-        adress: this.adress,
+        adress: this.adress
       };
-      this.$store.dispatch("createNewUser", userToBeRegistered);
-    },
-  },
+      await this.$store.dispatch("createNewUser", userToBeRegistered);
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 

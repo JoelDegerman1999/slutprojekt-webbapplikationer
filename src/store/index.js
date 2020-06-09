@@ -120,9 +120,12 @@ export default new Vuex.Store({
       commit("SET_USER", null);
       commit("SET_TOKEN", null);
     },
-    async createNewUser(context, newUser) {
-      let user = await User.register(newUser);
-      console.log(user);
+    async createNewUser({ dispatch }, newUser) {
+      await User.register(newUser);
+      await dispatch("login", {
+        email: newUser.email,
+        password: newUser.password,
+      });
     },
     getCartFromLocalStorage({ commit }) {
       let cartArray = JSON.parse(localStorage.getItem("cart"));
