@@ -12,14 +12,14 @@
           <h2>PASSWORD</h2>
           <input type="password" v-model="password" />
         </div>
-      </div>
-      <h3 id="errorMessage">{{errorMessage}}</h3>
-      <div class="buttons">
-        <button id="loginButton" v-on:click="loginUser">LOGIN</button>
-        <p>Not a user yet?</p>
-        <router-link to="register"
-          ><button id="registerButton">REGISTER</button></router-link
-        >
+        <h3 id="errorMessage">{{errorMessage}}</h3>
+        <div class="buttons">
+          <button id="loginButton" v-on:click="loginUser">LOGIN</button>
+          <p>Not a user yet?</p>
+          <router-link to="register">
+            <button id="registerButton">REGISTER</button>
+          </router-link>
+        </div>
       </div>
     </section>
   </div>
@@ -32,7 +32,7 @@ export default {
     password: "",
     errorMessage: "",
 
-    statusCode: 200,
+    statusCode: 200
   }),
 
   methods: {
@@ -40,20 +40,20 @@ export default {
       let userCredentials = {
         email: this.email,
         password: this.password
-      }
-      
-      let statusCode = await this.$store.dispatch('login', userCredentials);
-      if(statusCode == 200){
+      };
+
+      let statusCode = await this.$store.dispatch("login", userCredentials);
+      if (statusCode == 200) {
         this.$router.push("/");
-      }else{
+      } else {
         let inputFields = document.querySelectorAll("input");
         inputFields.forEach(element => {
           element.classList.add("wrongInput");
         });
-          this.errorMessage = "Incorrect email or password.";
+        this.errorMessage = "Incorrect email or password.";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -73,12 +73,11 @@ input:focus {
   transform: scale(1.02);
 }
 
-.wrongInput{
+.wrongInput {
   border: 2px solid red;
 }
 
 h2 {
-  margin-right: 2rem;
   font-size: 2.3rem;
 }
 
@@ -89,7 +88,6 @@ h1 {
 .buttons {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   margin-top: 1rem;
 
@@ -101,7 +99,6 @@ h1 {
 
   #loginButton {
     margin-bottom: 2rem;
-    background-color: #89c055;
   }
 
   #registerButton {
@@ -118,6 +115,10 @@ h1 {
   margin: 0 auto;
   margin-top: 5rem;
   width: 45rem;
+}
+
+.input-container {
+  text-align: center;
 }
 
 .emailInput {
@@ -140,7 +141,7 @@ h1 {
   }
 }
 
-#errorMessage{
+#errorMessage {
   color: red;
   font-weight: bold;
 }

@@ -43,7 +43,11 @@
         <button class="cont-btn">CONTINUE SHOPPING</button>
       </router-link>
       <router-link to="/checkout">
-        <button class="check-btn">CHECKOUT NOW</button>
+        <button
+          class="check-btn"
+          :class="{disabled: !canCheckOut}"
+          :disabled="!canCheckOut"
+        >CHECKOUT NOW</button>
       </router-link>
     </div>
   </div>
@@ -74,6 +78,13 @@ export default {
     }
   },
   computed: {
+    canCheckOut() {
+      if (this.$store.state.cart.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     getCart() {
       return this.$store.state.cart;
     },
@@ -96,6 +107,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.disabled {
+  cursor: default;
+  opacity: 0.5;
+}
 .container {
   height: 100%;
   display: flex;
@@ -135,24 +150,22 @@ export default {
       display: flex;
       justify-content: space-between;
       box-sizing: border-box;
-       align-items: center;
+      align-items: center;
       padding: 3rem;
       width: 100%;
       height: 100%;
 
       .menu-product {
-     
-      min-width: 25%;
+        min-width: 25%;
       }
-      .menu-total{
+      .menu-total {
         padding-right: 1rem;
         min-width: 10%;
       }
- .menu-price{
-display:flex;
+      .menu-price {
+        display: flex;
+      }
 
- }
-      
       p {
         font-weight: 600;
       }
@@ -182,10 +195,10 @@ display:flex;
         }
       }
       .product-price {
-      min-width: 10%;
+        min-width: 10%;
       }
 
-      .row-total{
+      .row-total {
         width: 10%;
       }
       .cart-quantity {

@@ -32,9 +32,8 @@
 
 <script>
 export default {
-
-  computed:{
-    cartItems(){
+  computed: {
+    cartItems() {
       let counter = 0;
       this.$store.state.cart.forEach(element => {
         counter += element.quantity;
@@ -46,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#cartItemCounter{
+#cartItemCounter {
   position: relative;
   background-color: #1489ab;
   border-radius: 50px;
