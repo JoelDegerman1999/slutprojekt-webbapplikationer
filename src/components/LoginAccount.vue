@@ -37,12 +37,12 @@ export default {
     async loginUser() {
       let userCredentials = {
         email: this.email,
-        password: this.password,
-      };
-
-      let statusCode = await this.$store.dispatch("login", userCredentials);
-      if (statusCode == 200) {
-        this.$router.push("/home");
+        password: this.password
+      }
+      
+      let statusCode = await this.$store.dispatch('login', userCredentials);
+      if(statusCode == 200){
+        this.$router.push("/");
       }
     },
   },

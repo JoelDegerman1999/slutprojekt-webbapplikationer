@@ -11,6 +11,7 @@ export default new Vuex.Store({
     product: {},
     token: "",
     cart: [],
+    user: {}
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -42,6 +43,9 @@ export default new Vuex.Store({
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
     },
+    SET_USER(state, user){
+      state.user = user;
+    }
     ADD_PRODUCT(state, product) {
       state.products.push(product);
     },
@@ -86,13 +90,17 @@ export default new Vuex.Store({
       let product = await Product.get(productId);
       commit("SET_PRODUCT", product.data);
     },
+    async readProduct(context, productId){
+      let product = await Product.get(productId);
+      return product.data;
+    },
     async login({ commit }, loginCred) {
-      try {
-        let login = await User.auth(loginCred.email, loginCred.password);
-        // console.log(login);
-        commit("SET_TOKEN", login.data.token);
-        return login.status;
-      } catch (error) {
+      try{
+      let login = await User.auth(loginCred.email, loginCred.password);
+      commit("SET_USER", login.data.user);
+      commit("SET_TOKEN", login.data.token);
+      return login.status;
+      }catch(error){
         return 403;
       }
     },
