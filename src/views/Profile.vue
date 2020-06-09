@@ -86,10 +86,11 @@ export default {
     },
   },
 
-  async mounted(){
+  async beforeCreate(){
       let currentUser = this.$store.state.user;
-      if(Object.keys(currentUser).length === 0){
+      if(currentUser == null){
         this.$router.push("/login/account");
+        return;
       }
 
       this.orders = currentUser.orderHistory;
