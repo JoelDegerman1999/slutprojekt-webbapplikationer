@@ -73,7 +73,7 @@ export default {
       let cartItems = this.cart;
       console.log("before");
       await this.$store.dispatch("placeOrder", cartItems);
-      console.log("after");
+      this.$router.push("/");
     }
   },
   beforeMount() {
