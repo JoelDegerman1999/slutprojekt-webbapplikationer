@@ -6,6 +6,8 @@ Samla era erfarenheter från Kanban, Scrum och diskussionerna av Modern Agile oc
 
 ************************  Metodologi **************************************
 
+https://trello.com/invite/b/5Vfkg8om/b5cf774d1595ad0ef3ca7c8c8fcc8467/sinus-webshop
+
 Vi har bestämt oss för att använda SCRUM i vårt projekt. 
 
 * Vi ska skapa en sprint-backlogg med user stories.
